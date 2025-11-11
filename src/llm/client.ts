@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import OpenAI, { AzureOpenAI } from 'openai';
 import { config } from '../config';
 import { SelectorCandidate } from '../types';
 import { logger } from '../utils/logger';
@@ -7,22 +7,27 @@ import { logger } from '../utils/logger';
  * LLM Client for intelligent selector generation
  */
 export class LLMClient {
-  private client: OpenAI;
+  private client: OpenAI | AzureOpenAI;
   private static instance: LLMClient;
 
   private constructor() {
     const llmConfig = config.llm;
     
-    this.client = new OpenAI({
-      apiKey: llmConfig.apiKey,
-      baseURL: llmConfig.baseUrl,
-      defaultHeaders: llmConfig.deployment ? {
-        'api-key': llmConfig.apiKey,
-      } : undefined,
-      defaultQuery: llmConfig.apiVersion ? {
-        'api-version': llmConfig.apiVersion,
-      } : undefined,
-    });
+    if (llmConfig.provider === 'azure') {
+      // Use AzureOpenAI client
+      this.client = new AzureOpenAI({
+        apiKey: llmConfig.apiKey,
+        endpoint: llmConfig.baseUrl,
+        deployment: llmConfig.deployment,
+        apiVersion: llmConfig.apiVersion,
+      });
+    } else {
+      // Use standard OpenAI client
+      this.client = new OpenAI({
+        apiKey: llmConfig.apiKey,
+        baseURL: llmConfig.baseUrl,
+      });
+    }
   }
 
   /**
@@ -58,8 +63,15 @@ export class LLMClient {
 
       logger.debug('Sending request to LLM for selector healing...');
 
+      // Use deployment name for Azure, model for OpenAI
+      const modelName = config.llm.provider === 'azure' && config.llm.deployment 
+        ? config.llm.deployment 
+        : config.llm.model;
+
+      logger.debug(`Using model/deployment: ${modelName}`);
+
       const response = await this.client.chat.completions.create({
-        model: config.llm.model,
+        model: modelName,
         messages: [
           {
             role: 'system',
