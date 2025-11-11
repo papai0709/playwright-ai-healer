@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  tests:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./test-results:/app/test-results
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./screenshots:/app/screenshots
+    environment:
+      - HEADLESS=true
+      - CI=true
+    command: npm test
