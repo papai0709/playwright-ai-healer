@@ -1,17 +1,17 @@
 # Comprehensive Self-Healing Report
 
-**Generated:** 2025-11-11T09:50:34.049Z
+**Generated:** 2025-11-13T11:27:19.923Z
 
 ---
 
 ## 📊 Overall Statistics
 
-- **Total Healing Attempts:** 53
-- **Successful Heals:** 44
-- **Failed Heals:** 9
-- **Success Rate:** 83.02%
-- **Average Confidence:** 93.18%
-- **Average Attempts per Heal:** 1.92
+- **Total Healing Attempts:** 77
+- **Successful Heals:** 65
+- **Failed Heals:** 12
+- **Success Rate:** 84.42%
+- **Average Confidence:** 92.77%
+- **Average Attempts per Heal:** 1.84
 
 ---
 
@@ -19,10 +19,10 @@
 
 
 ### css
-- Total Uses: 27
-- Successes: 27
+- Total Uses: 48
+- Successes: 48
 - Success Rate: 100.00%
-- Average Confidence: 92.04%
+- Average Confidence: 91.98%
 
 
 ### xpath
@@ -37,7 +37,247 @@
 ## 📋 Recent Healing Attempts (Last 50)
 
 
-### 1. ✅ #nav-link-accountList-broken-cache-test
+### 1. ✅ #nav-tools-old-selector
+
+- **Healed Selector:** `div#a-page`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:57:00 PM
+
+
+### 2. ✅ #nav-logo-old-broken
+
+- **Healed Selector:** `img[style='display:none;visibility:hidden;'][alt='']`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:57:00 PM
+
+
+### 3. ✅ #twotab-search-old
+
+- **Healed Selector:** `div#a-page`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:57:00 PM
+
+
+### 4. ✅ #nav-account-old-broken-link
+
+- **Healed Selector:** `img[src*='//fls-eu.amazon.in/1/batch/1/OP']`
+- **Strategy:** css
+- **Confidence:** 85.0%
+- **Attempts:** 3
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:56:57 PM
+
+
+### 5. ✅ #nav-cart-broken-selector-xyz
+
+- **Healed Selector:** `#nav-cart`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:56:49 PM
+
+
+### 6. ✅ #search-box-broken-old-id
+
+- **Healed Selector:** `#a-page img[height='1'][width='1'][style='display:none;visibility:hidden;']`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:56:34 PM
+
+
+### 7. ✅ #nav-cart-broken-selector-xyz
+
+- **Healed Selector:** `#nav-cart`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:56:17 PM
+
+
+### 8. ✅ #search-box-broken-old-id
+
+- **Healed Selector:** `#a-page img[height='1'][width='1'][style='display:none;visibility:hidden;']`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:56:02 PM
+
+
+### 9. ✅ #nav-tools-old-selector
+
+- **Healed Selector:** `div#a-page`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:54:37 PM
+
+
+### 10. ✅ #nav-logo-old-broken
+
+- **Healed Selector:** `img[style='display:none;visibility:hidden;'][alt='']`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:54:31 PM
+
+
+### 11. ✅ #twotab-search-old
+
+- **Healed Selector:** `div#a-page`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:54:21 PM
+
+
+### 12. ❌ #nav-cart-broken-selector-xyz
+
+- **Healed Selector:** `N/A`
+- **Strategy:** N/A
+- **Confidence:** N/A
+- **Attempts:** 7
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:54:06 PM
+
+
+### 13. ✅ #search-box-broken-old-id
+
+- **Healed Selector:** `#a-page img[height='1'][width='1'][style='display:none;visibility:hidden;']`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:53:38 PM
+
+
+### 14. ✅ #search-box-broken-old-id
+
+- **Healed Selector:** `#a-page img[height='1'][width='1'][style='display:none;visibility:hidden;']`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:53:13 PM
+
+
+### 15. ✅ #nav-link-accountList-broken-cache-test
+
+- **Healed Selector:** `#nav-link-accountList`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:45 PM
+
+
+### 16. ✅ #nav-link-accountList-broken-cache-test
+
+- **Healed Selector:** `#nav-link-accountList`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:45 PM
+
+
+### 17. ✅ #nav-link-accountList-broken-cache-test
+
+- **Healed Selector:** `#nav-link-accountList`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:45 PM
+
+
+### 18. ✅ #nav-cart-old-selector-123
+
+- **Healed Selector:** `#nav-cart`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:44 PM
+
+
+### 19. ✅ #nav-search-submit-button-old-xyz
+
+- **Healed Selector:** `#nav-search-submit-button`
+- **Strategy:** css
+- **Confidence:** 90.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:44 PM
+
+
+### 20. ✅ #twotabsearchtextbox-old-broken
+
+- **Healed Selector:** `#twotabsearchtextbox`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:44 PM
+
+
+### 21. ✅ #old-signin-link-broken-xyz
+
+- **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:40 PM
+
+
+### 22. ✅ #old-signin-link-broken-xyz
+
+- **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
+- **Strategy:** css
+- **Confidence:** 95.0%
+- **Attempts:** 1
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:38 PM
+
+
+### 23. ❌ #old-create-account-button-xyz123
+
+- **Healed Selector:** `N/A`
+- **Strategy:** N/A
+- **Confidence:** N/A
+- **Attempts:** 5
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:36 PM
+
+
+### 24. ❌ #old-create-account-button-xyz123
+
+- **Healed Selector:** `N/A`
+- **Strategy:** N/A
+- **Confidence:** N/A
+- **Attempts:** 5
+- **Notes:** N/A
+- **Timestamp:** 11/13/2025, 4:50:19 PM
+
+
+### 25. ✅ #nav-link-accountList-broken-cache-test
 
 - **Healed Selector:** `#nav-link-accountList`
 - **Strategy:** css
@@ -47,7 +287,7 @@
 - **Timestamp:** 11/11/2025, 3:20:10 PM
 
 
-### 2. ✅ #nav-link-accountList-broken-cache-test
+### 26. ✅ #nav-link-accountList-broken-cache-test
 
 - **Healed Selector:** `#nav-link-accountList`
 - **Strategy:** css
@@ -57,7 +297,7 @@
 - **Timestamp:** 11/11/2025, 3:20:10 PM
 
 
-### 3. ✅ #nav-link-accountList-broken-cache-test
+### 27. ✅ #nav-link-accountList-broken-cache-test
 
 - **Healed Selector:** `#nav-link-accountList`
 - **Strategy:** css
@@ -67,7 +307,7 @@
 - **Timestamp:** 11/11/2025, 3:20:10 PM
 
 
-### 4. ✅ #nav-cart-old-selector-123
+### 28. ✅ #nav-cart-old-selector-123
 
 - **Healed Selector:** `#nav-cart`
 - **Strategy:** css
@@ -77,7 +317,7 @@
 - **Timestamp:** 11/11/2025, 3:20:08 PM
 
 
-### 5. ✅ #nav-search-submit-button-old-xyz
+### 29. ✅ #nav-search-submit-button-old-xyz
 
 - **Healed Selector:** `#nav-search-submit-button`
 - **Strategy:** css
@@ -87,7 +327,7 @@
 - **Timestamp:** 11/11/2025, 3:20:08 PM
 
 
-### 6. ✅ #twotabsearchtextbox-old-broken
+### 30. ✅ #twotabsearchtextbox-old-broken
 
 - **Healed Selector:** `#twotabsearchtextbox`
 - **Strategy:** css
@@ -97,7 +337,7 @@
 - **Timestamp:** 11/11/2025, 3:20:08 PM
 
 
-### 7. ✅ #old-signin-link-broken-xyz
+### 31. ✅ #old-signin-link-broken-xyz
 
 - **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
 - **Strategy:** css
@@ -107,7 +347,7 @@
 - **Timestamp:** 11/11/2025, 3:20:04 PM
 
 
-### 8. ✅ #old-signin-link-broken-xyz
+### 32. ✅ #old-signin-link-broken-xyz
 
 - **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
 - **Strategy:** css
@@ -117,7 +357,7 @@
 - **Timestamp:** 11/11/2025, 3:20:01 PM
 
 
-### 9. ✅ #nav-cart-old-selector-123
+### 33. ✅ #nav-cart-old-selector-123
 
 - **Healed Selector:** `#nav-cart`
 - **Strategy:** css
@@ -127,7 +367,7 @@
 - **Timestamp:** 11/11/2025, 3:19:56 PM
 
 
-### 10. ✅ #nav-search-submit-button-old-xyz
+### 34. ✅ #nav-search-submit-button-old-xyz
 
 - **Healed Selector:** `#nav-search-submit-button`
 - **Strategy:** css
@@ -137,7 +377,7 @@
 - **Timestamp:** 11/11/2025, 3:19:56 PM
 
 
-### 11. ✅ #twotabsearchtextbox-old-broken
+### 35. ✅ #twotabsearchtextbox-old-broken
 
 - **Healed Selector:** `#twotabsearchtextbox`
 - **Strategy:** css
@@ -147,7 +387,7 @@
 - **Timestamp:** 11/11/2025, 3:19:55 PM
 
 
-### 12. ✅ #nav-cart-old-selector-123
+### 36. ✅ #nav-cart-old-selector-123
 
 - **Healed Selector:** `#nav-cart`
 - **Strategy:** css
@@ -157,7 +397,7 @@
 - **Timestamp:** 11/11/2025, 3:19:30 PM
 
 
-### 13. ✅ #nav-search-submit-button-old-xyz
+### 37. ✅ #nav-search-submit-button-old-xyz
 
 - **Healed Selector:** `#nav-search-submit-button`
 - **Strategy:** css
@@ -167,7 +407,7 @@
 - **Timestamp:** 11/11/2025, 3:19:30 PM
 
 
-### 14. ✅ #twotabsearchtextbox-old-broken
+### 38. ✅ #twotabsearchtextbox-old-broken
 
 - **Healed Selector:** `#twotabsearchtextbox`
 - **Strategy:** css
@@ -177,7 +417,7 @@
 - **Timestamp:** 11/11/2025, 3:19:29 PM
 
 
-### 15. ✅ #old-signin-link-broken-xyz
+### 39. ✅ #old-signin-link-broken-xyz
 
 - **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
 - **Strategy:** css
@@ -187,7 +427,7 @@
 - **Timestamp:** 11/11/2025, 3:19:25 PM
 
 
-### 16. ❌ #old-create-account-button-xyz123
+### 40. ❌ #old-create-account-button-xyz123
 
 - **Healed Selector:** `N/A`
 - **Strategy:** N/A
@@ -197,7 +437,7 @@
 - **Timestamp:** 11/11/2025, 3:19:23 PM
 
 
-### 17. ❌ #old-create-account-button-xyz123
+### 41. ❌ #old-create-account-button-xyz123
 
 - **Healed Selector:** `N/A`
 - **Strategy:** N/A
@@ -207,7 +447,7 @@
 - **Timestamp:** 11/11/2025, 3:19:12 PM
 
 
-### 18. ✅ #nav-link-accountList-broken-cache-test
+### 42. ✅ #nav-link-accountList-broken-cache-test
 
 - **Healed Selector:** `#nav-link-accountList`
 - **Strategy:** css
@@ -217,7 +457,7 @@
 - **Timestamp:** 11/11/2025, 3:16:20 PM
 
 
-### 19. ✅ #nav-link-accountList-broken-cache-test
+### 43. ✅ #nav-link-accountList-broken-cache-test
 
 - **Healed Selector:** `#nav-link-accountList`
 - **Strategy:** css
@@ -227,7 +467,7 @@
 - **Timestamp:** 11/11/2025, 3:16:20 PM
 
 
-### 20. ✅ #nav-link-accountList-broken-cache-test
+### 44. ✅ #nav-link-accountList-broken-cache-test
 
 - **Healed Selector:** `#nav-link-accountList`
 - **Strategy:** css
@@ -237,7 +477,7 @@
 - **Timestamp:** 11/11/2025, 3:16:20 PM
 
 
-### 21. ✅ #nav-cart-old-selector-123
+### 45. ✅ #nav-cart-old-selector-123
 
 - **Healed Selector:** `#nav-cart`
 - **Strategy:** css
@@ -247,7 +487,7 @@
 - **Timestamp:** 11/11/2025, 3:16:12 PM
 
 
-### 22. ✅ #nav-search-submit-button-old-xyz
+### 46. ✅ #nav-search-submit-button-old-xyz
 
 - **Healed Selector:** `#nav-search-submit-button`
 - **Strategy:** css
@@ -257,7 +497,7 @@
 - **Timestamp:** 11/11/2025, 3:16:05 PM
 
 
-### 23. ✅ #twotabsearchtextbox-old-broken
+### 47. ✅ #twotabsearchtextbox-old-broken
 
 - **Healed Selector:** `#twotabsearchtextbox`
 - **Strategy:** css
@@ -267,7 +507,7 @@
 - **Timestamp:** 11/11/2025, 3:15:59 PM
 
 
-### 24. ✅ #old-signin-link-broken-xyz
+### 48. ✅ #old-signin-link-broken-xyz
 
 - **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
 - **Strategy:** css
@@ -277,7 +517,7 @@
 - **Timestamp:** 11/11/2025, 3:15:49 PM
 
 
-### 25. ✅ #old-signin-link-broken-xyz
+### 49. ✅ #old-signin-link-broken-xyz
 
 - **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
 - **Strategy:** css
@@ -287,7 +527,7 @@
 - **Timestamp:** 11/11/2025, 3:15:48 PM
 
 
-### 26. ✅ #old-signin-link-broken-xyz
+### 50. ✅ #old-signin-link-broken-xyz
 
 - **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
 - **Strategy:** css
@@ -295,246 +535,6 @@
 - **Attempts:** 1
 - **Notes:** N/A
 - **Timestamp:** 11/11/2025, 3:15:48 PM
-
-
-### 27. ✅ #old-signin-link-broken-xyz
-
-- **Healed Selector:** `a[aria-label='Amazon Two-Step Verification']`
-- **Strategy:** css
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 3:15:47 PM
-
-
-### 28. ❌ #old-create-account-button-xyz123
-
-- **Healed Selector:** `N/A`
-- **Strategy:** N/A
-- **Confidence:** N/A
-- **Attempts:** 6
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 3:15:39 PM
-
-
-### 29. ❌ #old-create-account-button-xyz123
-
-- **Healed Selector:** `N/A`
-- **Strategy:** N/A
-- **Confidence:** N/A
-- **Attempts:** 6
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 3:15:26 PM
-
-
-### 30. ❌ #createAccountSubmit
-
-- **Healed Selector:** `N/A`
-- **Strategy:** N/A
-- **Confidence:** N/A
-- **Attempts:** 7
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 11:01:36 AM
-
-
-### 31. ❌ #createAccountSubmit
-
-- **Healed Selector:** `N/A`
-- **Strategy:** N/A
-- **Confidence:** N/A
-- **Attempts:** 7
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 11:01:26 AM
-
-
-### 32. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 11:00:58 AM
-
-
-### 33. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 11:00:50 AM
-
-
-### 34. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 11:00:42 AM
-
-
-### 35. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 11:00:30 AM
-
-
-### 36. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 11:00:16 AM
-
-
-### 37. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:59:45 AM
-
-
-### 38. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:59:45 AM
-
-
-### 39. ❌ #createAccountSubmit
-
-- **Healed Selector:** `N/A`
-- **Strategy:** N/A
-- **Confidence:** N/A
-- **Attempts:** 7
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:59:17 AM
-
-
-### 40. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:58:59 AM
-
-
-### 41. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:58:50 AM
-
-
-### 42. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:58:35 AM
-
-
-### 43. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:58:27 AM
-
-
-### 44. ❌ #createAccountSubmit
-
-- **Healed Selector:** `N/A`
-- **Strategy:** N/A
-- **Confidence:** N/A
-- **Attempts:** 4
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:58:15 AM
-
-
-### 45. ❌ #createAccountSubmit
-
-- **Healed Selector:** `N/A`
-- **Strategy:** N/A
-- **Confidence:** N/A
-- **Attempts:** 7
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:57:58 AM
-
-
-### 46. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:57:40 AM
-
-
-### 47. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:57:40 AM
-
-
-### 48. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:57:03 AM
-
-
-### 49. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:56:57 AM
-
-
-### 50. ✅ #ap_email
-
-- **Healed Selector:** `//div[@id='a-page']//input[@name='email']`
-- **Strategy:** xpath
-- **Confidence:** 95.0%
-- **Attempts:** 1
-- **Notes:** N/A
-- **Timestamp:** 11/11/2025, 10:56:38 AM
 
 
 ---
