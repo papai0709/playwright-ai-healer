@@ -119,11 +119,21 @@ export class SelectorRepository {
       )
     `);
 
-    // Create indexes
+    // Create indexes (Enhanced: Additional indexes for performance)
     this.db.exec(`
       CREATE INDEX IF NOT EXISTS idx_selectors_page_url ON selectors(page_url);
+      CREATE INDEX IF NOT EXISTS idx_selectors_last_used ON selectors(last_used);
+      CREATE INDEX IF NOT EXISTS idx_selectors_created_at ON selectors(created_at);
+      CREATE INDEX IF NOT EXISTS idx_selectors_success_rate ON selectors(success_rate DESC);
+      
       CREATE INDEX IF NOT EXISTS idx_healing_history_selector_id ON healing_history(selector_id);
+      CREATE INDEX IF NOT EXISTS idx_healing_history_timestamp ON healing_history(timestamp DESC);
+      CREATE INDEX IF NOT EXISTS idx_healing_history_success ON healing_history(success);
+      
       CREATE INDEX IF NOT EXISTS idx_alternative_selectors_selector_id ON alternative_selectors(selector_id);
+      CREATE INDEX IF NOT EXISTS idx_alternative_selectors_confidence ON alternative_selectors(confidence DESC);
+      CREATE INDEX IF NOT EXISTS idx_alternative_selectors_created_at ON alternative_selectors(created_at);
+      CREATE INDEX IF NOT EXISTS idx_alternative_selectors_success_count ON alternative_selectors(success_count DESC);
     `);
 
     this.initialized = true;
@@ -168,14 +178,19 @@ export class SelectorRepository {
   }
 
   /**
-   * Get selector by ID
+   * Get selector by ID (Enhanced: with TTL validation)
    */
   getSelector(id: string): ElementSelector | null {
     this.ensureInitialized();
     
+    // Enhanced: Check if selector is expired (> 7 days old and not recently used)
+    const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+    const expirationTime = Date.now() - CACHE_TTL_MS;
+    
     const results = this.db!.exec(`
-      SELECT * FROM selectors WHERE id = ?
-    `, [id]);
+      SELECT * FROM selectors 
+      WHERE id = ? AND (last_used > ? OR created_at > ?)
+    `, [id, expirationTime, expirationTime]);
 
     if (results.length === 0 || results[0].values.length === 0) return null;
     
@@ -283,13 +298,23 @@ export class SelectorRepository {
   }
 
   /**
-   * Get alternative selectors
+   * Get alternative selectors (Enhanced: with TTL cache invalidation)
    */
   getAlternatives(selectorId: string): SelectorCandidate[] {
     this.ensureInitialized();
     
+    // Enhanced: Cache TTL - expire selectors older than 7 days
+    const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+    const expirationTime = Date.now() - CACHE_TTL_MS;
+    
+    // Clean up expired alternatives
+    this.db!.run(`
+      DELETE FROM alternative_selectors 
+      WHERE created_at < ?
+    `, [expirationTime]);
+    
     const results = this.db!.exec(`
-      SELECT alternative_selector, strategy, confidence
+      SELECT alternative_selector, strategy, confidence, created_at
       FROM alternative_selectors
       WHERE selector_id = ?
       ORDER BY confidence DESC, success_count DESC
