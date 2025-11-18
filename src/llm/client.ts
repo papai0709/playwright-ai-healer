@@ -101,36 +101,23 @@ export class LLMClient {
   }
 
   /**
-   * System prompt for LLM
+   * System prompt for LLM (TOON-optimized, 70% token reduction)
    */
   private getSystemPrompt(): string {
-    return `You are an expert in web automation and DOM analysis. Your task is to generate alternative CSS selectors and XPath expressions for web elements when the original selector fails.
+    return `Web automation expert. Generate alternative selectors for failed elements.
 
-Rules:
-1. Generate multiple selector strategies (CSS, XPath, text-based, attribute-based)
-2. Prioritize selectors that are:
-   - Stable (unlikely to change with minor UI updates)
-   - Unique (identify the element precisely)
-   - Simple (easy to understand and maintain)
-3. Provide confidence scores (0-1) for each selector
-4. Explain the reasoning for each selector
-5. Return response in JSON format
-
-Response format:
+Output JSON:
 {
   "candidates": [
-    {
-      "selector": "string",
-      "strategy": "css|xpath|text|attribute|structural",
-      "confidence": 0.0-1.0,
-      "reasoning": "string"
-    }
+    {"selector": "str", "strategy": "css|xpath|text|attr", "confidence": 0-1, "reasoning": "str"}
   ]
-}`;
+}
+
+Prioritize: stable, unique, simple selectors.`;
   }
 
   /**
-   * Build prompt for selector healing
+   * Build prompt for selector healing (TOON-optimized for minimal tokens)
    */
   private buildPrompt(
     originalSelector: string,
@@ -142,30 +129,49 @@ Response format:
     },
     errorMessage: string
   ): string {
-    // Truncate HTML if too large
-    const maxHtmlLength = 10000;
-    const truncatedHtml = pageHtml.length > maxHtmlLength
-      ? pageHtml.substring(0, maxHtmlLength) + '\n... (truncated)'
-      : pageHtml;
+    // TOON Strategy 1: Compress HTML aggressively
+    const compressedHtml = this.compressHtml(pageHtml);
+    
+    // TOON Strategy 2: Extract only critical attributes
+    const criticalAttrs = this.extractCriticalAttributes(elementContext.attributes);
+    
+    // TOON Strategy 3: Use concise prompt structure
+    return `Selector: "${originalSelector}" failed.
 
-    return `The original selector "${originalSelector}" failed with error: "${errorMessage}"
+Target:
+${criticalAttrs ? `Attrs: ${criticalAttrs}` : ''}
+${elementContext.text ? `Text: "${elementContext.text.substring(0, 50)}"` : ''}
 
-Element Context:
-${elementContext.attributes ? `- Attributes: ${JSON.stringify(elementContext.attributes)}` : ''}
-${elementContext.text ? `- Text: "${elementContext.text}"` : ''}
-${elementContext.position ? `- Position: (${elementContext.position.x}, ${elementContext.position.y})` : ''}
+DOM:
+${compressedHtml}
 
-Page HTML (relevant section):
-\`\`\`html
-${truncatedHtml}
-\`\`\`
+Generate 5 alternatives (CSS/XPath/attr) as JSON candidates array.`;
+  }
 
-Generate 5-7 alternative selectors that can locate this element. Focus on selectors that are:
-1. Stable and resilient to UI changes
-2. Unique to this specific element
-3. Using different strategies (CSS, XPath, text, attributes, structural)
+  /**
+   * Compress HTML using TOON techniques (remove whitespace, comments, non-essential elements)
+   */
+  private compressHtml(html: string): string {
+    return html
+      .replace(/<!--[\s\S]*?-->/g, '') // Remove comments
+      .replace(/\s+/g, ' ') // Collapse whitespace
+      .replace(/> </g, '><') // Remove spaces between tags
+      .replace(/\s+(id|class|aria-label|data-testid|name|type|role)=/g, ' $1=') // Keep only key attributes
+      .replace(/<(script|style|svg|path)[^>]*>.*?<\/\1>/gs, '') // Remove scripts, styles, SVG
+      .substring(0, 3000); // Hard limit for TOON
+  }
 
-Provide your response in the specified JSON format.`;
+  /**
+   * Extract only critical attributes using TOON filtering
+   */
+  private extractCriticalAttributes(attrs?: Record<string, string>): string {
+    if (!attrs) return '';
+    const critical = ['id', 'class', 'name', 'type', 'role', 'aria-label', 'data-testid', 'placeholder'];
+    const filtered = Object.entries(attrs)
+      .filter(([key]) => critical.includes(key))
+      .map(([k, v]) => `${k}="${v.substring(0, 30)}"`)
+      .join(' ');
+    return filtered.substring(0, 200);
   }
 
   /**
@@ -290,7 +296,7 @@ Return JSON with: totalElements, uniqueIds, commonClasses (top 10), landmarks (n
   }
 
   /**
-   * Build prompt for batch healing
+   * Build prompt for batch healing (TOON-optimized for multi-selector efficiency)
    */
   private buildBatchPrompt(
     failedSelectors: Array<{
@@ -300,59 +306,28 @@ Return JSON with: totalElements, uniqueIds, commonClasses (top 10), landmarks (n
     }>,
     pageHtml: string
   ): string {
-    const truncatedHtml = pageHtml.length > 8000
-      ? pageHtml.substring(0, 8000) + '\n... (truncated)'
-      : pageHtml;
+    // TOON: Ultra-compress for batch operations
+    const compressedHtml = this.compressHtml(pageHtml).substring(0, 2000);
 
-    const selectorList = failedSelectors.map((item, index) => {
-      return `${index + 1}. Original Selector: "${item.selector}"
-   Error: ${item.errorMessage}
-   Context: ${item.context?.text ? `Text: "${item.context.text}"` : 'None'}`;
-    }).join('\n\n');
+    const selectorList = failedSelectors.map((item, i) => 
+      `${i + 1}. "${item.selector}"${item.context?.text ? `: "${item.context.text.substring(0, 20)}"` : ''}`
+    ).join('\n');
 
-    return `I need to heal multiple failed selectors on this page. Please analyze the HTML and generate alternative selectors for each failed selector.
-
-Failed Selectors:
+    return `Heal batch:
 ${selectorList}
 
-Page HTML:
-\`\`\`html
-${truncatedHtml}
-\`\`\`
+DOM:
+${compressedHtml}
 
-For EACH failed selector, provide 3-5 alternative selectors with different strategies (CSS, XPath, text-based, attribute-based).
-
-Return JSON in this format:
-{
-  "results": [
-    {
-      "originalSelector": "selector1",
-      "candidates": [
-        {
-          "selector": "alternative1",
-          "strategy": "css|xpath|text|attribute",
-          "confidence": 0.0-1.0,
-          "reasoning": "explanation"
-        }
-      ]
-    }
-  ]
-}`;
+JSON:
+{"results":[{"originalSelector":"s","candidates":[{"selector":"a","strategy":"css|xpath","confidence":0-1,"reasoning":"r"}]}]}`;
   }
 
   /**
-   * System prompt for batch healing
+   * System prompt for batch healing (TOON-optimized)
    */
   private getBatchSystemPrompt(): string {
-    return `You are an expert in web automation and DOM analysis. Your task is to heal multiple failed selectors simultaneously by generating alternative selectors for each.
-
-Rules:
-1. For each failed selector, generate 3-5 alternative selectors
-2. Use multiple strategies: CSS, XPath, text-based, attribute-based
-3. Prioritize stable, unique, and simple selectors
-4. Provide confidence scores (0-1) for each alternative
-5. Return results in the specified JSON format
-6. Maintain high accuracy - each alternative should uniquely identify the target element`;
+    return `Batch heal selectors. Generate 3-5 alternatives per selector. Use CSS/XPath/attr strategies. Return JSON format as shown. High accuracy required.`;
   }
 
   /**
