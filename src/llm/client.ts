@@ -2,6 +2,12 @@ import OpenAI, { AzureOpenAI } from 'openai';
 import { config } from '../config';
 import { SelectorCandidate } from '../types';
 import { logger } from '../utils/logger';
+import { 
+  encodeToon, 
+  decodeToon, 
+  decodeHealingResponse, 
+  decodeBatchHealingResponse 
+} from '../utils/toon-parser';
 
 /**
  * LLM Client for intelligent selector generation
@@ -84,7 +90,6 @@ export class LLMClient {
         ],
         temperature: config.llm.temperature,
         max_tokens: config.llm.maxTokens,
-        response_format: { type: 'json_object' },
       });
 
       const content = response.choices[0]?.message?.content;
@@ -92,7 +97,8 @@ export class LLMClient {
         throw new Error('No response from LLM');
       }
 
-      const result = JSON.parse(content);
+      // Parse TOON format response
+      const result = decodeToon(content);
       return this.parseLLMResponse(result);
     } catch (error) {
       logger.error('Error generating alternative selectors:', error);
@@ -101,17 +107,16 @@ export class LLMClient {
   }
 
   /**
-   * System prompt for LLM (TOON-optimized, 70% token reduction)
+   * System prompt for LLM (TOON-optimized format, 70% token reduction)
    */
   private getSystemPrompt(): string {
-    return `Web automation expert. Generate alternative selectors for failed elements.
+    return `Web automation expert. Generate alternative selectors using TOON format.
 
-Output JSON:
-{
-  "candidates": [
-    {"selector": "str", "strategy": "css|xpath|text|attr", "confidence": 0-1, "reasoning": "str"}
-  ]
-}
+Output TOON:
+candidates:[{selector:str strategy:css|xpath|text|attr confidence:0-1 reasoning:str}]
+
+Example:
+candidates:[{selector:#submit-btn strategy:css confidence:0.95 reasoning:stable-id}]
 
 Prioritize: stable, unique, simple selectors.`;
   }
@@ -145,7 +150,7 @@ ${elementContext.text ? `Text: "${elementContext.text.substring(0, 50)}"` : ''}
 DOM:
 ${compressedHtml}
 
-Generate 5 alternatives (CSS/XPath/attr) as JSON candidates array.`;
+Generate 5 alternatives using TOON format.`;
   }
 
   /**
@@ -279,7 +284,6 @@ Return JSON with: totalElements, uniqueIds, commonClasses (top 10), landmarks (n
         ],
         temperature: config.llm.temperature,
         max_tokens: (config.llm.maxTokens || 2000) * 2, // Increased for batch processing
-        response_format: { type: 'json_object' },
       });
 
       const content = response.choices[0]?.message?.content;
@@ -287,7 +291,8 @@ Return JSON with: totalElements, uniqueIds, commonClasses (top 10), landmarks (n
         throw new Error('No response from LLM');
       }
 
-      const result = JSON.parse(content);
+      // Parse TOON format response
+      const result = decodeToon(content);
       return this.parseBatchLLMResponse(result, failedSelectors);
     } catch (error) {
       logger.error('Error in batch selector healing:', error);
@@ -319,15 +324,15 @@ ${selectorList}
 DOM:
 ${compressedHtml}
 
-JSON:
-{"results":[{"originalSelector":"s","candidates":[{"selector":"a","strategy":"css|xpath","confidence":0-1,"reasoning":"r"}]}]}`;
+TOON:
+results:[{original:s candidates:[{selector:a strategy:css|xpath confidence:0-1 reasoning:r}]}]`;
   }
 
   /**
-   * System prompt for batch healing (TOON-optimized)
+   * System prompt for batch healing (TOON format)
    */
   private getBatchSystemPrompt(): string {
-    return `Batch heal selectors. Generate 3-5 alternatives per selector. Use CSS/XPath/attr strategies. Return JSON format as shown. High accuracy required.`;
+    return `Batch heal selectors using TOON format. Generate 3-5 alternatives per selector. Use CSS/XPath/attr strategies. Return as shown. High accuracy required.`;
   }
 
   /**
@@ -343,7 +348,7 @@ JSON:
       const results = response.results || [];
 
       for (const result of results) {
-        const originalSelector = result.originalSelector;
+        const originalSelector = result.originalSelector || result.original;
         const candidates: SelectorCandidate[] = (result.candidates || []).map((c: any) => ({
           selector: c.selector || '',
           strategy: c.strategy || 'css',

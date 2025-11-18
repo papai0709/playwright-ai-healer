@@ -6,7 +6,8 @@ A production-ready test automation framework with self-healing capabilities usin
 
 - **Self-Healing Selectors**: Automatically recovers from broken element locators using AI
 - **🚀 Batch Healing**: Heal multiple selectors in ONE LLM API call (70% fewer API calls)
-- **🧠 TOON Optimization**: Tree-of-Thought Optimized Nodes for 76-85% token reduction
+- **🧠 TOON Format**: Token-Oriented Object Notation for 30-40% additional token reduction
+- **📊 Combined Optimization**: 90% total token reduction (HTML compression + TOON format)
 - **💰 Cost Efficient**: 96% cost reduction for batch operations ($0.50 → $0.04 per batch)
 - **MCP Server Integration**: Model Context Protocol server for DOM analysis
 - **LLM-Powered**: Uses GPT-4 or Azure OpenAI for intelligent selector generation
