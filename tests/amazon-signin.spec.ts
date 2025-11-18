@@ -2,6 +2,7 @@ import { test, expect } from '../src/fixtures/self-healing-fixtures';
 
 /**
  * Test suite for Amazon India sign-in page
+ * OPTIMIZED: Uses batch healing & TOON to minimize token usage
  */
 test.describe('Amazon India Sign-In Page', () => {
   test.beforeEach(async ({ selfHealingPage }) => {
@@ -64,37 +65,43 @@ test.describe('Amazon India Sign-In Page', () => {
     expect(isVisible).toBe(true);
   });
 
-  test('should show validation message for empty email', async ({ selfHealingPage }) => {
+  test('should show validation message for empty email - BATCH HEALING', async ({ selfHealingPage }) => {
     // Navigate to sign-in
     const signInButton = selfHealingPage.healingLocator('#nav-link-accountList');
     await signInButton.click();
     
     await selfHealingPage.waitForURL('**/ap/signin**', { timeout: 10000 });
     
+    // Batch heal all selectors needed for this test in ONE LLM call
+    const locators = await selfHealingPage.healBatchLocators([
+      '#continue',
+      '.a-alert-content',
+    ]);
+    
     // Click continue without entering email
-    const continueButton = selfHealingPage.healingLocator('#continue');
-    await continueButton.click();
+    await locators['#continue'].click();
     
     // Wait for error message
     await selfHealingPage.waitForTimeout(1000);
     
-    // Check for error message (this selector might need healing)
-    const errorMessage = selfHealingPage.healingLocator('.a-alert-content');
-    const errorVisible = await errorMessage.isVisible();
+    // Check for error message
+    const errorVisible = await locators['.a-alert-content'].isVisible();
     
     expect(errorVisible).toBe(true);
   });
 
-  test('should allow entering email in input field', async ({ selfHealingPage }) => {
+  test('should allow entering email in input field - BATCH HEALING', async ({ selfHealingPage }) => {
     // Navigate to sign-in
     const signInButton = selfHealingPage.healingLocator('#nav-link-accountList');
     await signInButton.click();
     
     await selfHealingPage.waitForURL('**/ap/signin**', { timeout: 10000 });
     
+    // Batch heal email input - demonstrates batch API even with single selector
+    const locators = await selfHealingPage.healBatchLocators(['#ap_email']);
+    
     // Enter test email
-    const emailInput = selfHealingPage.healingLocator('#ap_email');
-    await emailInput.fill('test@example.com');
+    await locators['#ap_email'].fill('test@example.com');
     
     // Verify the value was entered
     const inputValue = await selfHealingPage.locator('#ap_email').inputValue();

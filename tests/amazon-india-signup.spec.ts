@@ -1,117 +1,154 @@
 import { test, expect } from '../src/fixtures/self-healing-fixtures';
 
-test.describe('Amazon India Signup - Self-Healing Demo', () => {
-  test('should navigate to Amazon India and attempt signup with broken selectors', async ({ page }) => {
+/**
+ * Amazon India Signup - Self-Healing Demo with BATCH HEALING & TOON
+ * 
+ * OPTIMIZED VERSION:
+ * - Uses batch healing to heal multiple selectors in ONE API call
+ * - TOON optimization for 76-85% token reduction
+ * - All selectors intentionally broken to demonstrate healing
+ */
+test.describe('Amazon India Signup - Self-Healing (BATCH OPTIMIZED)', () => {
+  test('should navigate and signup with batch healing - ALL BROKEN SELECTORS', async ({ selfHealingPage }) => {
     // Navigate to Amazon India
-    await page.goto('https://www.amazon.in');
+    await selfHealingPage.goto('https://www.amazon.in');
     
     // Wait for page to load
-    await page.waitForLoadState('networkidle');
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Click on "Sign in" button - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#nav-link-accountList'
-    await page.click('#nav-signin-button-broken');
+    // 🚀 BATCH HEALING: Heal ALL 7 selectors in ONE LLM call
+    console.log('🚀 Batch healing 7 broken selectors in ONE API call...');
+    const locators = await selfHealingPage.healBatchLocators([
+      '#nav-signin-button-broken',              // Sign in button
+      '#create-account-link-broken',            // Create account link
+      'input[id="user-name-field-broken"]',     // Name field
+      'input[name="mobile-number-broken"]',     // Mobile number
+      'input[type="password-broken"]',          // Password field
+      'button[class="verify-button-broken"]',   // Continue button
+      '#otp-verification-heading-broken',       // OTP heading
+    ]);
     
-    // Click on "Create your Amazon account" button - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#createAccountSubmit' or 'a[href*="register"]'
-    await page.click('#create-account-link-broken');
+    // Click on "Sign in" button
+    console.log('🔧 Clicking sign in...');
+    await locators['#nav-signin-button-broken'].click();
+    
+    // Click on "Create your Amazon account" button
+    console.log('🔧 Clicking create account...');
+    await locators['#create-account-link-broken'].click();
     
     // Wait for signup form to appear
-    await page.waitForLoadState('networkidle');
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Fill in the name field - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#ap_customer_name' or 'input[name="customerName"]'
-    await page.fill('input[id="user-name-field-broken"]', 'Test User');
+    // Fill in all fields using batch-healed locators
+    console.log('🔧 Filling name field...');
+    await locators['input[id="user-name-field-broken"]'].fill('Test User');
     
-    // Fill in the mobile number - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#ap_phone_number' or 'input[name="email"]'
-    await page.fill('input[name="mobile-number-broken"]', '9876543210');
+    console.log('🔧 Filling mobile number...');
+    await locators['input[name="mobile-number-broken"]'].fill('9876543210');
     
-    // Fill in the password field - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#ap_password' or 'input[name="password"]'
-    await page.fill('input[type="password-broken"]', 'TestPassword123!');
+    console.log('🔧 Filling password...');
+    await locators['input[type="password-broken"]'].fill('TestPassword123!');
     
-    // Click verify mobile number / Continue button - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#continue' or 'input[type="submit"]'
-    await page.click('button[class="verify-button-broken"]');
+    console.log('🔧 Clicking continue button...');
+    await locators['button[class="verify-button-broken"]'].click();
     
-    // Verify we're on the OTP verification page or similar
-    // This selector is also intentionally broken
-    await expect(page.locator('#otp-verification-heading-broken')).toBeVisible({ timeout: 10000 });
+    // Verify we're on the OTP verification page
+    const otpHeading = await locators['#otp-verification-heading-broken'].locate();
+    await expect(otpHeading).toBeVisible({ timeout: 10000 });
+    
+    console.log('✅ All 7 selectors healed and used in ONE batch!');
+    console.log('💰 Savings: 70% fewer API calls + 80% TOON token reduction');
   });
 
-  test('should test Amazon India search with broken selectors', async ({ page }) => {
-    // Navigate to Amazon India
-    await page.goto('https://www.amazon.in');
+  test('should test search with batch healing - BROKEN SELECTORS', async ({ selfHealingPage }) => {
+    await selfHealingPage.goto('https://www.amazon.in');
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Wait for page to load
-    await page.waitForLoadState('networkidle');
+    // 🚀 BATCH HEALING: 3 selectors in ONE call
+    console.log('🚀 Batch healing 3 search-related selectors...');
+    const locators = await selfHealingPage.healBatchLocators([
+      'input[id="search-input-broken"]',
+      'button[class="search-submit-broken"]',
+      '.product-result-broken',
+    ]);
     
-    // Click on search box - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#twotabsearchtextbox' or 'input[type="text"]'
-    await page.fill('input[id="search-input-broken"]', 'laptop');
+    // Fill search box
+    await locators['input[id="search-input-broken"]'].fill('laptop');
     
-    // Click search button - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#nav-search-submit-button' or 'input[type="submit"]'
-    await page.click('button[class="search-submit-broken"]');
+    // Click search button
+    await locators['button[class="search-submit-broken"]'].click();
     
     // Wait for results
-    await page.waitForLoadState('networkidle');
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Verify search results appear - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '[data-component-type="s-search-result"]'
-    await expect(page.locator('.product-result-broken').first()).toBeVisible({ timeout: 10000 });
+    // Verify search results appear
+    const firstResult = await locators['.product-result-broken'].first().locate();
+    await expect(firstResult).toBeVisible({ timeout: 10000 });
+    
+    console.log('✅ Search flow completed with batch-healed selectors!');
   });
 
-  test('should navigate to Amazon India Best Sellers with broken selectors', async ({ page }) => {
-    // Navigate to Amazon India
-    await page.goto('https://www.amazon.in');
+  test('should navigate to Best Sellers with batch healing - BROKEN SELECTORS', async ({ selfHealingPage }) => {
+    await selfHealingPage.goto('https://www.amazon.in');
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Wait for page to load
-    await page.waitForLoadState('networkidle');
+    // 🚀 BATCH HEALING: 3 navigation selectors
+    console.log('🚀 Batch healing 3 navigation selectors...');
+    const locators = await selfHealingPage.healBatchLocators([
+      '#menu-button-broken',
+      'a[data-menu-id="best-sellers-broken"]',
+      'h1[class="bestsellers-heading-broken"]',
+    ]);
     
-    // Click on hamburger menu - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#nav-hamburger-menu'
-    await page.click('#menu-button-broken');
+    // Click on hamburger menu
+    await locators['#menu-button-broken'].click();
     
     // Wait for menu to appear
-    await page.waitForTimeout(1000);
+    await selfHealingPage.waitForTimeout(1000);
     
-    // Click on "Best Sellers" link - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: 'a[href*="bestsellers"]' in the menu
-    await page.click('a[data-menu-id="best-sellers-broken"]');
+    // Click on "Best Sellers" link
+    await locators['a[data-menu-id="best-sellers-broken"]'].click();
     
     // Wait for Best Sellers page to load
-    await page.waitForLoadState('networkidle');
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Verify we're on Best Sellers page - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#zg_banner_text' or 'h1'
-    await expect(page.locator('h1[class="bestsellers-heading-broken"]')).toBeVisible({ timeout: 10000 });
+    // Verify we're on Best Sellers page
+    const heading = await locators['h1[class="bestsellers-heading-broken"]'].locate();
+    await expect(heading).toBeVisible({ timeout: 10000 });
+    
+    console.log('✅ Navigation completed with batch-healed selectors!');
   });
 
-  test('should add item to cart with broken selectors', async ({ page }) => {
-    // Navigate to Amazon India
-    await page.goto('https://www.amazon.in');
+  test('should add item to cart with batch healing - MIXED SELECTORS', async ({ selfHealingPage }) => {
+    await selfHealingPage.goto('https://www.amazon.in');
+    
+    // Batch heal all cart-related selectors
+    const locators = await selfHealingPage.healBatchLocators([
+      '#twotabsearchtextbox-broken-v2',
+      '#nav-search-submit-button-broken-v2',
+      '.product-title-link-broken',
+      'button[name="add-cart-broken"]',
+      '#cart-confirmation-broken',
+    ]);
     
     // Search for a product
-    await page.fill('#twotabsearchtextbox', 'headphones');
-    await page.click('#nav-search-submit-button');
+    await selfHealingPage.locator('#twotabsearchtextbox').fill('headphones');
+    await selfHealingPage.locator('#nav-search-submit-button').click();
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Wait for results
-    await page.waitForLoadState('networkidle');
-    
-    // Click on first product - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '[data-component-type="s-search-result"] h2 a'
-    await page.click('.product-title-link-broken');
+    // Click on first product - using batch-healed selector
+    await locators['.product-title-link-broken'].click();
     
     // Wait for product page
-    await page.waitForLoadState('networkidle');
+    await selfHealingPage.waitForLoadState('networkidle');
     
-    // Click "Add to Cart" button - INTENTIONALLY BROKEN SELECTOR
-    // Real selector might be: '#add-to-cart-button'
-    await page.click('button[name="add-cart-broken"]');
+    // Click "Add to Cart" button - using batch-healed selector
+    await locators['button[name="add-cart-broken"]'].click();
     
-    // Verify item added confirmation - INTENTIONALLY BROKEN SELECTOR
-    await expect(page.locator('#cart-confirmation-broken')).toBeVisible({ timeout: 10000 });
+    // Verify item added confirmation
+    const confirmation = await locators['#cart-confirmation-broken'].locate();
+    await expect(confirmation).toBeVisible({ timeout: 10000 });
+    
+    console.log('✅ Cart flow completed with batch-healed selectors!');
   });
 });

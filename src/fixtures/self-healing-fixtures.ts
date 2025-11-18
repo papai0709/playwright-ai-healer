@@ -77,9 +77,16 @@ class SelfHealingLocator {
   /**
    * Check visibility with healing
    */
-  async isVisible() {
+  async isVisible(options?: { timeout?: number }) {
     const locator = await this.locate();
-    return await locator.isVisible();
+    return await locator.isVisible(options);
+  }
+
+  /**
+   * Get first element
+   */
+  first() {
+    return new SelfHealingLocator(this.page, `${this.selector} >> nth=0`, this.engine);
   }
 
   /**
@@ -92,10 +99,18 @@ class SelfHealingLocator {
 }
 
 /**
+ * Batch healing result for multiple selectors
+ */
+interface BatchHealingLocators {
+  [key: string]: SelfHealingLocator;
+}
+
+/**
  * Extended Page with self-healing capabilities
  */
 interface SelfHealingPage extends Page {
   healingLocator(selector: string): SelfHealingLocator;
+  healBatchLocators(selectors: string[]): Promise<BatchHealingLocators>;
 }
 
 /**
@@ -107,8 +122,66 @@ export const test = base.extend<{ selfHealingPage: SelfHealingPage }>({
     
     // Extend page with healing capabilities
     const healingPage = page as SelfHealingPage;
+    
+    // Individual selector healing
     healingPage.healingLocator = (selector: string) => {
       return new SelfHealingLocator(page, selector, engine);
+    };
+
+    // Batch selector healing - heals multiple selectors in a single LLM API call
+    healingPage.healBatchLocators = async (selectors: string[]) => {
+      const results: BatchHealingLocators = {};
+      
+      // Try all selectors first to identify which ones need healing
+      const failedSelectors: Array<{ selector: string; errorMessage: string }> = [];
+      
+      for (const selector of selectors) {
+        try {
+          const locator = page.locator(selector);
+          const count = await locator.count();
+          
+          if (count > 0) {
+            // Selector works, no healing needed
+            results[selector] = new SelfHealingLocator(page, selector, engine);
+          } else {
+            failedSelectors.push({
+              selector,
+              errorMessage: `No elements found for selector: ${selector}`,
+            });
+          }
+        } catch (error) {
+          failedSelectors.push({
+            selector,
+            errorMessage: (error as Error).message,
+          });
+        }
+      }
+      
+      // If we have failed selectors, heal them all in one batch call
+      if (failedSelectors.length > 0) {
+        logger.info(`🔧 Batch healing ${failedSelectors.length} selectors...`);
+        
+        const healingResults = await engine.healBatchSelectors(page, failedSelectors);
+        
+        // Create locators for healed selectors
+        healingResults.forEach((result, originalSelector) => {
+          if (result.success && result.healedSelector) {
+            // Create a locator using the healed selector
+            results[originalSelector] = new SelfHealingLocator(
+              page,
+              result.healedSelector,
+              engine
+            );
+            logger.info(`✅ Healed: ${originalSelector} → ${result.healedSelector}`);
+          } else {
+            // Fallback to original selector (will fail when used)
+            results[originalSelector] = new SelfHealingLocator(page, originalSelector, engine);
+            logger.warn(`❌ Failed to heal: ${originalSelector}`);
+          }
+        });
+      }
+      
+      return results;
     };
 
     await use(healingPage);
